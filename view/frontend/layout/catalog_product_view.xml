@@ -1,0 +1,81 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Resolve
+ * NOTICE OF LICENSE
+ * This source file is subject to the Open Software License (OSL 3.0)
+ * that is bundled with this package in the file LICENSE.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://opensource.org/licenses/osl-3.0.php
+ * If you did not receive a copy of the license and are unable to
+ * obtain it through the world-wide-web, please send an email
+ * to codemaster@resolvecommerce.com so we can send you a copy immediately.
+ *
+ * @category  Resolve
+ * @package   Resolve_Resolve
+ * @copyright Copyright (c) 2016 Resolve, Inc. (http://www.resolvecommerce.com)
+ * @license   http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ */
+-->
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <body>
+        <referenceContainer name="top.container">
+            <block class="Resolve\Resolve\Block\Promotion\Banners" name="resolve_banner_center_top" as="bml.main.top" template="Resolve_Resolve::promotion/bml.phtml" before="-">
+                <arguments>
+                    <argument name="section" xsi:type="string">product</argument>
+                    <argument name="position" xsi:type="number">0</argument>
+                </arguments>
+            </block>
+            <block class="Resolve\Resolve\Block\Promotion\Banners" name="resolve_banner_center_bottom" as="bml.main.bottom" template="Resolve_Resolve::promotion/bml.phtml" after="-">
+                <arguments>
+                    <argument name="section" xsi:type="string">product</argument>
+                    <argument name="position" xsi:type="number">1</argument>
+                </arguments>
+            </block>
+        </referenceContainer>
+        <referenceBlock name="product.info.addtocart">
+            <block class="Resolve\Resolve\Block\Promotion\Banners" name="bml.right.banner.top" template="Resolve_Resolve::promotion/bml.phtml" after="-">
+                <arguments>
+                    <argument name="section" xsi:type="string">product</argument>
+                    <argument name="position" xsi:type="number">2</argument>
+                </arguments>
+            </block>
+        </referenceBlock>
+        <referenceBlock name="product.info.form.options">
+            <block class="Resolve\Resolve\Block\Promotion\Banners" name="bml.right.banner.top1" template="Resolve_Resolve::promotion/bml.phtml" after="-">
+                <arguments>
+                    <argument name="section" xsi:type="string">product</argument>
+                    <argument name="position" xsi:type="number">2</argument>
+                </arguments>
+            </block>
+        </referenceBlock>
+        <referenceContainer name="product.info.main">
+            <block class="Resolve\Resolve\Block\Promotion\ProductPage\Aslowas" name="aslowas.after.price" template="Resolve_Resolve::promotion/aslowasPDP.phtml" after="product.info.price">
+                <arguments>
+                    <argument name="position" xsi:type="string">pdp</argument>
+                    <argument name="placement" xsi:type="number">0</argument>
+                </arguments>
+            </block>
+            <block class="Resolve\Resolve\Block\Promotion\ProductPage\Aslowas" name="aslowas.before.price" template="Resolve_Resolve::promotion/aslowasPDP.phtml" before="product.info.price">
+                <arguments>
+                    <argument name="position" xsi:type="string">pdp</argument>
+                    <argument name="placement" xsi:type="number">1</argument>
+                </arguments>
+            </block>
+            <block class="Resolve\Resolve\Block\Promotion\ProductPage\Aslowas" name="aslowas.end.product.info" template="Resolve_Resolve::promotion/aslowasPDP.phtml" after="-">
+                <arguments>
+                    <argument name="position" xsi:type="string">pdp</argument>
+                    <argument name="placement" xsi:type="number">2</argument>
+                </arguments>
+            </block>
+        </referenceContainer>
+        <referenceContainer name="before.body.end">
+            <block class="Resolve\Resolve\Block\Promotion\Pixel\Code"
+                   name="resolve_pixel_code_product"
+                   template="Resolve_Resolve::pixel/code.phtml"
+                   as="resolve_pixel_javascript_code"
+                   after="-"
+                   ifconfig="resolve/resolve_pixel/enabled" />
+        </referenceContainer>
+    </body>
+</page>

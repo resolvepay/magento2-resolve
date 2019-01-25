@@ -1,0 +1,13 @@
+.columns .column.main {
+    max-width: 100%;
+}
+
+.resolve-promo iframe {
+    max-width: 100%;
+}
+
+#learn-more img {
+    height: 1em !important;
+    margin: 0 .3em !important;
+    vertical-align: baseline !important;
+}

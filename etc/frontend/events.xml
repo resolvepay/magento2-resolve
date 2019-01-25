@@ -1,0 +1,25 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Resolve
+ * Resolve system configuration.
+ *
+ * @category  Resolve
+ * @package   Resolve_Resolve
+ * @copyright Copyright (c) 2016 Resolve, Inc. (http://www.resolvecommerce.com)
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:Event/etc/events.xsd">
+    <event name="controller_action_predispatch">
+        <observer name="initialize_financing_program_parameter" instance="Resolve\Resolve\Model\Observer\IdentifyFinancingProgram" />
+    </event>
+    <event name="customer_login">
+        <observer name="update_financing_program_parameter_on_login" instance="Resolve\Resolve\Model\Observer\UpdateFinancingProgramOnLogin" />
+    </event>
+    <event name="checkout_onepage_controller_success_action">
+        <observer name="resolve_order_success" instance="Resolve\Resolve\Model\Observer\SetResolveAnalyticsOnOrderSuccessPageView" />
+    </event>
+    <event name="multishipping_checkout_controller_success_action">
+        <observer name="resolve_order_success" instance="Resolve\Resolve\Model\Observer\SetResolveAnalyticsOnOrderSuccessPageView" />
+    </event>
+</config>

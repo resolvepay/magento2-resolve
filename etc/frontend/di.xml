@@ -1,0 +1,45 @@
+<?xml version="1.0"?>
+<!--
+ /**
+ * Resolve
+ * Resolve Module activation file.
+ *
+ * @category  Resolve
+ * @package   Resolve_Resolve
+ * @copyright Copyright (c) 2016 Resolve, Inc. (http://www.resolvecommerce.com)
+ */
+ -->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+    <type name="Magento\Checkout\Model\CompositeConfigProvider">
+        <arguments>
+            <argument name="configProviders" xsi:type="array">
+                <item name="resolve_gateway_config_provider" xsi:type="object">Resolve\Resolve\Model\Ui\ConfigProvider</item>
+            </argument>
+        </arguments>
+    </type>
+    <type name="Resolve\Resolve\Block\Info">
+        <arguments>
+            <argument name="data" xsi:type="array">
+                <item xsi:type="string" name="is_secure_mode">1</item>
+            </argument>
+        </arguments>
+    </type>
+    <type name="Resolve\Resolve\Model\Ui\ConfigProvider">
+        <arguments>
+            <argument name="config" xsi:type="object">OnePicaResolveGatewayConfig</argument>
+        </arguments>
+    </type>
+    <type name="Magento\Checkout\Block\Cart\Sidebar">
+        <plugin name="resolve_aslowas_cart" type="\Resolve\Resolve\Model\Plugin\MiniCart\AsLowAs\ConfigPlugin" />
+    </type>
+    <type name="Magento\Catalog\Block\Product\ListProduct">
+        <plugin name="resolve_aslowas_product_list" type="\Resolve\Resolve\Model\Plugin\Product\ListProduct" />
+    </type>
+    <type name="Magento\Catalog\Block\Category\View">
+        <plugin name="resolve_aslowas_product_list_view" type="\Resolve\Resolve\Model\Plugin\Category\View" />
+    </type>
+    <preference for="Magento\CatalogSearch\Block\SearchResult\ListProduct" type="Magento\Catalog\Block\Product\ListProduct" />
+    <type name="Magento\CatalogSearch\Block\Result">
+        <plugin name="resolve_aslowas_product_search_list" type="\Resolve\Resolve\Model\Plugin\Category\View" />
+    </type>
+</config>

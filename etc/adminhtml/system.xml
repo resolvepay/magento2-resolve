@@ -1,0 +1,360 @@
+<!--
+  ~ /*
+  ~  * BSD 3-Clause License
+  ~  *
+  ~  * Copyright (c) 2018, Resolve
+  ~  * All rights reserved.
+  ~  *
+  ~  * Redistribution and use in source and binary forms, with or without
+  ~  * modification, are permitted provided that the following conditions are met:
+  ~  *
+  ~  *  Redistributions of source code must retain the above copyright notice, this
+  ~  *   list of conditions and the following disclaimer.
+  ~  *
+  ~  *  Redistributions in binary form must reproduce the above copyright notice,
+  ~  *   this list of conditions and the following disclaimer in the documentation
+  ~  *   and/or other materials provided with the distribution.
+  ~  *
+  ~  *  Neither the name of the copyright holder nor the names of its
+  ~  *   contributors may be used to endorse or promote products derived from
+  ~  *   this software without specific prior written permission.
+  ~  *
+  ~  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
+  ~  * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
+  ~  * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
+  ~  * DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE
+  ~  * FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
+  ~  * DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR
+  ~  * SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER
+  ~  * CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,
+  ~  * OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
+  ~  * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+  ~  */
+  -->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Config:etc/system_file.xsd">
+    <system>
+        <section id="payment">
+            <group id="resolve_gateway" translate="label" type="text" sortOrder="34" showInDefault="1" showInWebsite="1" showInStore="1">
+                <label>Resolve</label>
+                <field id="version" translate="label" type="label" sortOrder="5" showInDefault="1" showInWebsite="1" showInStore="0">
+                    <label>Extension Version</label>
+                    <frontend_model>Resolve\Resolve\Block\System\Config\Form\Field\Version</frontend_model>
+                </field>
+                <field id="active" translate="label" type="select" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="0">
+                    <label>Enabled</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+                <field id="mode" translate="label" type="select" sortOrder="20" showInDefault="1" showInWebsite="1" showInStore="0">
+                    <label>Mode</label>
+                    <source_model>Resolve\Resolve\Model\Adminhtml\Source\ModeAction</source_model>
+                </field>
+                <field id="public_api_key_sandbox" translate="label" type="text" sortOrder="30" showInDefault="1" showInWebsite="1" showInStore="0">
+                    <label>Public API Key</label>
+                    <depends><field id="mode">sandbox</field></depends>
+                </field>
+                <field id="private_api_key_sandbox" translate="label" type="obscure" sortOrder="40" showInDefault="1" showInWebsite="1" showInStore="0">
+                    <label>Private API Key</label>
+                    <config_path>payment/resolve_gateway/private_api_key_sandbox</config_path>
+                    <backend_model>Magento\Config\Model\Config\Backend\Encrypted</backend_model>
+                    <attribute type="shared">1</attribute>
+                    <depends><field id="mode">sandbox</field></depends>
+                </field>
+                <field id="public_api_key_production" translate="label" type="text" sortOrder="30" showInDefault="1" showInWebsite="1" showInStore="0">
+                    <label>Public API Key</label>
+                    <config_path>payment/resolve_gateway/public_api_key_production</config_path>
+                    <depends><field id="mode">production</field></depends>
+                </field>
+                <field id="private_api_key_production" translate="label" type="obscure" sortOrder="40" showInDefault="1" showInWebsite="0">
+                    <label>Private API Key</label>
+                    <backend_model>Magento\Config\Model\Config\Backend\Encrypted</backend_model>
+                    <attribute type="shared">1</attribute>
+                    <depends><field id="mode">production</field></depends>
+                </field>
+                <field id="payment_action" translate="label" type="select" sortOrder="70" showInDefault="1" showInWebsite="1" showInStore="0">
+                    <label>Payment Action</label>
+                    <source_model>Resolve\Resolve\Model\Adminhtml\Source\PaymentAction</source_model>
+                </field>
+                <field id="disable_for_backordered_items" translate="label" type="select" sortOrder="71" showInDefault="1" showInWebsite="1" showInStore="0">
+                    <label>Disable for backordered items</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+                <field id="min_order_total" translate="label" type="text" sortOrder="88" showInDefault="1" showInWebsite="1" showInStore="0">
+                    <label>Minimum Order Total</label>
+                    <frontend_class>validate-number</frontend_class>
+                </field>
+                <field id="max_order_total" translate="label" type="text" sortOrder="90" showInDefault="1" showInWebsite="1" showInStore="0">
+                    <label>Maximum Order Total</label>
+                    <frontend_class>validate-number</frontend_class>
+                </field>
+                <field id="sort_order" translate="label" type="text" sortOrder="100" showInDefault="1" showInWebsite="1" showInStore="0">
+                    <label>Sort Order</label>
+                    <frontend_class>validate-number</frontend_class>
+                </field>
+                <field id="control" translate="label" type="select" sortOrder="110" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Plain Text Appearance</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+                <field id="title" translate="label" type="text" sortOrder="120" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Title</label>
+                    <depends><field id="control">1</field></depends>
+                </field>
+                <field id="info" translate="label" type="textarea" sortOrder="140" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Resolve Payment Method HTML</label>
+                    <comment>This field will be showed in checkout on payment section.</comment>
+                    <depends><field id="control">0</field></depends>
+                </field>
+                <field id="control-comment" translate="label" type="select" sortOrder="150" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Plain Description Text Appearance</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+                <field id="title-description" translate="label" type="text" sortOrder="120" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Title Description</label>
+                    <depends><field id="control-comment">1</field></depends>
+                </field>
+                <field id="info-description" translate="label" type="textarea" sortOrder="140" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Resolve Payment Method Description HTML</label>
+                    <comment>This description will be showed in checkout on payment section.</comment>
+                    <depends><field id="control-comment">0</field></depends>
+                </field>
+                <!--<field id="enable_checkout_button" translate="label" type="select" sortOrder="150" showInDefault="1" showInWebsite="1" showInStore="0">-->
+                    <!--<label>Enabled Checkout Button</label>-->
+                    <!--<source_model>Magento\Config\Model\Config\Source\Yesno</source_model>-->
+                <!--</field>-->
+                <!--<field id="checkout_button_code" translate="label" type="textarea" sortOrder="160" showInDefault="1" showInWebsite="1" showInStore="0">-->
+                    <!--<label>Checkout Button Code</label>-->
+                    <!--<depends><field id="enable_checkout_button">1</field></depends>-->
+                <!--</field>-->
+                <!--<field id="checkout_flow_type" translate="label" type="select" sortOrder="170" showInDefault="1" showInWebsite="1" showInStore="0">-->
+                    <!--<label>Checkout Flow Type</label>-->
+                    <!--<source_model>Resolve\Resolve\Model\Adminhtml\Source\PaymentCheckoutFlow</source_model>-->
+                <!--</field>-->
+                <group id="notification" translate="label" type="text" sortOrder="180" showInDefault="1" showInWebsite="1" showInStore="0">
+                    <label>Notification</label>
+                    <field id="notification_update" translate="label" type="select" sortOrder="170" showInDefault="1" showInWebsite="1" showInStore="0">
+                        <label>I'd like to be informed about Resolve extension updates</label>
+                        <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    </field>
+                </group>
+            </group>
+        </section>
+        <!--<section id="resolve" translate="label" type="text" sortOrder="1200" showInDefault="1" showInWebsite="1" showInStore="0">-->
+            <!--<label>Resolve Promos</label>-->
+            <!--<tab>general</tab>-->
+            <!--<resource>Resolve_Resolve::configuration</resource>-->
+            <!--<group id="resolve_promo" translate="label" sortOrder="1" showInDefault="1" showInWebsite="1" showInStore="0">-->
+                <!--<label>Banner Settings</label>-->
+                <!--<field id="enabled" translate="label" type="select" sortOrder="1" showInDefault="1" showInWebsite="1" showInStore="0">-->
+                    <!--<label>Enabled</label>-->
+                    <!--<source_model>Magento\Config\Model\Config\Source\Yesno</source_model>-->
+                <!--</field>-->
+            <!--</group>-->
+            <!--<group id="resolve_promo_homepage" translate="label" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="0">-->
+                <!--<label>Home Page Settings</label>-->
+                <!--<field id="display" translate="label" type="select" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="0">-->
+                    <!--<label>Display</label>-->
+                    <!--<source_model>Magento\Config\Model\Config\Source\Yesno</source_model>-->
+                <!--</field>-->
+                <!--<field id="size" translate="label" type="select" sortOrder="20" showInDefault="1" showInWebsite="1" showInStore="0">-->
+                    <!--<label>Promo Size</label>-->
+                    <!--<source_model>Resolve\Resolve\Model\Config\System\Source\Size</source_model>-->
+                <!--</field>-->
+                <!--<field id="position" translate="label" type="select" sortOrder="30" showInDefault="1" showInWebsite="1" showInStore="0">-->
+                    <!--<label>Promo Position</label>-->
+                    <!--<source_model>Resolve\Resolve\Model\Config\System\Source\Position</source_model>-->
+                <!--</field>-->
+            <!--</group>-->
+            <!--<group id="resolve_promo_category" translate="label" sortOrder="20" showInDefault="1" showInWebsite="1" showInStore="0">-->
+                <!--<label>Catalog Category Page Settings</label>-->
+                <!--<field id="display" translate="label" type="select" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="0">-->
+                    <!--<label>Display</label>-->
+                    <!--<source_model>Magento\Config\Model\Config\Source\Yesno</source_model>-->
+                <!--</field>-->
+                <!--<field id="size" translate="label" type="select" sortOrder="20" showInDefault="1" showInWebsite="1" showInStore="0">-->
+                    <!--<label>Promo Size</label>-->
+                    <!--<source_model>Resolve\Resolve\Model\Config\System\Source\Size</source_model>-->
+                <!--</field>-->
+                <!--<field id="position" translate="label" type="select" sortOrder="30" showInDefault="1" showInWebsite="1" showInStore="0">-->
+                    <!--<label>Promo Position</label>-->
+                    <!--<source_model>Resolve\Resolve\Model\Config\System\Source\Position</source_model>-->
+                <!--</field>-->
+            <!--</group>-->
+            <!--<group id="resolve_promo_product" translate="label" sortOrder="30" showInDefault="1" showInWebsite="1" showInStore="0">-->
+                <!--<label>Catalog Product Page Settings</label>-->
+                <!--<field id="display" translate="label" type="select" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="0">-->
+                    <!--<label>Display</label>-->
+                    <!--<source_model>Magento\Config\Model\Config\Source\Yesno</source_model>-->
+                <!--</field>-->
+                <!--<field id="size" translate="label" type="select" sortOrder="20" showInDefault="1" showInWebsite="1" showInStore="0">-->
+                    <!--<label>Promo Size</label>-->
+                    <!--<source_model>Resolve\Resolve\Model\Config\System\Source\Size</source_model>-->
+                <!--</field>-->
+                <!--<field id="position" translate="label" type="select" sortOrder="30" showInDefault="1" showInWebsite="1" showInStore="0">-->
+                    <!--<label>Promo Position</label>-->
+                    <!--<source_model>Resolve\Resolve\Model\Config\System\Source\Position::getBmlPositionsCPP</source_model>-->
+                <!--</field>-->
+            <!--</group>-->
+            <!--<group id="resolve_promo_checkout_cart" translate="label" sortOrder="40" showInDefault="1" showInWebsite="1" showInStore="0">-->
+                <!--<label>Checkout Cart Page Settings</label>-->
+                <!--<field id="display" translate="label" type="select" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="0">-->
+                    <!--<label>Display</label>-->
+                    <!--<source_model>Magento\Config\Model\Config\Source\Yesno</source_model>-->
+                <!--</field>-->
+                <!--<field id="size" translate="label" type="select" sortOrder="20" showInDefault="1" showInWebsite="1" showInStore="0">-->
+                    <!--<label>Promo Size</label>-->
+                    <!--<source_model>Resolve\Resolve\Model\Config\System\Source\Size</source_model>-->
+                <!--</field>-->
+                <!--<field id="position" translate="label" type="select" sortOrder="30" showInDefault="1" showInWebsite="1" showInStore="0">-->
+                    <!--<label>Promo Position</label>-->
+                    <!--<source_model>Resolve\Resolve\Model\Config\System\Source\Position::getCCPosition</source_model>-->
+                <!--</field>-->
+            <!--</group>-->
+            <!--<group id="resolve_developer" translate="label" sortOrder="50" showInDefault="1" showInWebsite="1" showInStore="0">-->
+                <!--<label>Developer settings</label>-->
+                <!--<field id="homepage_container" translate="label" type="textarea" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="0">-->
+                    <!--<label>Home page container</label>-->
+                    <!--<comment>-->
+                        <!--<![CDATA[Place html code with "{container}"-tag inside, which will be replaced with your promo block.]]>-->
+                    <!--</comment>-->
+                <!--</field>-->
+                <!--<field id="category_container" translate="label" type="textarea" sortOrder="20" showInDefault="1" showInWebsite="1" showInStore="0">-->
+                    <!--<label>Catalog Category Container</label>-->
+                    <!--<comment>-->
+                        <!--<![CDATA[Place html code with "{container}"-tag inside, which will be replaced with your promo block.]]>-->
+                    <!--</comment>-->
+                <!--</field>-->
+                <!--<field id="product_container" translate="label" type="textarea" sortOrder="30" showInDefault="1" showInWebsite="1" showInStore="0">-->
+                    <!--<label>Catalog Product Container</label>-->
+                    <!--<comment>-->
+                        <!--<![CDATA[Place html code with "{container}"-tag inside, which will be replaced with your promo block.]]>-->
+                    <!--</comment>-->
+                <!--</field>-->
+                <!--<field id="checkout_cart_container" translate="label" type="textarea" sortOrder="40" showInDefault="1" showInWebsite="1" showInStore="0">-->
+                    <!--<label>Checkout Cart Container</label>-->
+                    <!--<comment>-->
+                        <!--<![CDATA[Place html code with "{container}"-tag inside, which will be replaced with your promo block.]]>-->
+                    <!--</comment>-->
+                <!--</field>-->
+            <!--</group>-->
+            <!--<group id="resolve_aslowas" translate="label" sortOrder="60" showInDefault="1" showInWebsite="1" showInStore="0">-->
+                <!--<label>As Low As Functionality</label>-->
+                <!--<comment>-->
+                    <!--<![CDATA[Pay attention! Please, specify public key inside Resolve payment method. Stores->Configuration->Sales->Payment Methods->Resolve.-->
+                        <!--"As low as" will be visible only in case if product price or checkout cart total will be above of $50.-->
+                    <!--]]>-->
+                <!--</comment>-->
+                <!--<fieldset_css>complex</fieldset_css>-->
+                <!--<field id="enabled_pdp" translate="label" type="select" sortOrder="1" showInDefault="1" showInWebsite="1" showInStore="0">-->
+                    <!--<label>Enable for PDP</label>-->
+                    <!--<source_model>Magento\Config\Model\Config\Source\Yesno</source_model>-->
+                <!--</field>-->
+                <!--<field id="enabled_plp" translate="label" type="select" sortOrder="2" showInDefault="1" showInWebsite="1" showInStore="0">-->
+                    <!--<label>Enable for Category PLP</label>-->
+                    <!--<source_model>Magento\Config\Model\Config\Source\Yesno</source_model>-->
+                <!--</field>-->
+                <!--<field id="enabled_cc" translate="label" type="select" sortOrder="3" showInDefault="1" showInWebsite="1" showInStore="0">-->
+                    <!--<label>Enable for Shopping Cart</label>-->
+                    <!--<source_model>Magento\Config\Model\Config\Source\Yesno</source_model>-->
+                <!--</field>-->
+                <!--<field id="enabled_mcc" translate="label" type="select" sortOrder="4" showInDefault="1" showInWebsite="1" showInStore="0">-->
+                    <!--<label>Enable for Mini Shopping Cart</label>-->
+                    <!--<source_model>Magento\Config\Model\Config\Source\Yesno</source_model>-->
+                <!--</field>-->
+                <!--<field id="logo" translate="label" type="select" sortOrder="40" showInDefault="1" showInWebsite="1" showInStore="0">-->
+                    <!--<label>Resolve logo</label>-->
+                    <!--<source_model>Resolve\Resolve\Model\Config\System\Source\Logo</source_model>-->
+                <!--</field>-->
+                <!--<field id="min_mpp" translate="label" type="text" sortOrder="50" showInDefault="1" showInWebsite="1" showInStore="0">-->
+                    <!--<label>Minimum amount for displaying the monthly payment pricing</label>-->
+                    <!--<frontend_class>validate-number</frontend_class>-->
+                <!--</field>-->
+                <!--<field id="learn_more" translate="label" type="select" sortOrder="60" showInDefault="1" showInWebsite="1" showInStore="0">-->
+                    <!--<label>Enable Learn More</label>-->
+                    <!--<source_model>Magento\Config\Model\Config\Source\Yesno</source_model>-->
+                <!--</field>-->
+                <!--<field id="promo_id_value_default" translate="label" type="text" sortOrder="55" showInDefault="1" showInWebsite="1" showInStore="0">-->
+                    <!--<label>Default Resolve Promo ID</label>-->
+                <!--</field>-->
+            <!--</group>-->
+            <!--<group id="resolve_aslowas_developer" translate="label" sortOrder="70" showInDefault="1" showInWebsite="1" showInStore="0">-->
+                <!--<label>As Low As Additional Developer Settings</label>-->
+                <!--<field id="placement" translate="label" type="select" sortOrder="1" showInDefault="1" showInWebsite="1" showInStore="0">-->
+                    <!--<label>PDP Placement options for As low as</label>-->
+                    <!--<source_model>Resolve\Resolve\Model\Config\System\Source\Position::getBlockPlacementPDP</source_model>-->
+                <!--</field>-->
+            <!--</group>-->
+            <!--<group id="resolve_mfp" translate="label" sortOrder="80" showInDefault="1" showInWebsite="1" showInStore="0">-->
+                <!--<label>Multiple Financing Program</label>-->
+                <!--<fieldset_css>complex</fieldset_css>-->
+                <!--<field id="financing_program_value_default" translate="label" type="text" sortOrder="72" showInDefault="1" showInWebsite="1" showInStore="0">-->
+                    <!--<label>Default Financing Program value</label>-->
+                <!--</field>-->
+                <!--<field id="financing_program_value" translate="label" type="text" sortOrder="74" showInDefault="1" showInWebsite="1" showInStore="0">-->
+                    <!--<label>Financing Program value</label>-->
+                <!--</field>-->
+                <!--<field id="start_date_mfp" translate="label" type="text" sortOrder="76" showInDefault="1" showInWebsite="1" showInStore="0">-->
+                    <!--<label>Start date for Financing Program value</label>-->
+                    <!--<frontend_model>Resolve\Resolve\Block\System\Config\Form\Field\Date</frontend_model>-->
+                <!--</field>-->
+                <!--<field id="end_date_mfp" translate="label" type="text" sortOrder="78" showInDefault="1" showInWebsite="1" showInStore="0">-->
+                    <!--<label>End date for Financing Program value</label>-->
+                    <!--<frontend_model>Resolve\Resolve\Block\System\Config\Form\Field\Date</frontend_model>-->
+                <!--</field>-->
+                <!--<field id="promo_id_value" translate="label" type="text" sortOrder="79" showInDefault="1" showInWebsite="1" showInStore="0">-->
+                    <!--<label>Resolve Promo ID</label>-->
+                <!--</field>-->
+                <!--<field id="financing_program_cart_size_value" translate="label" type="text" sortOrder="80" showInDefault="1" showInWebsite="1" showInStore="0">-->
+                    <!--<label>Cart-size Financing Program value</label>-->
+                <!--</field>-->
+                <!--<field id="financing_program_cart_size_min_order_total" translate="label" type="text" sortOrder="82" showInDefault="1" showInWebsite="1" showInStore="0">-->
+                    <!--<label>Cart-size Financing Program Minimum Order Total</label>-->
+                    <!--<frontend_class>validate-number</frontend_class>-->
+                <!--</field>-->
+                <!--<field id="financing_program_cart_size_max_order_total" translate="label" type="text" sortOrder="84" showInDefault="1" showInWebsite="1" showInStore="0">-->
+                    <!--<label>Cart-size Financing Program Maximum Order Total</label>-->
+                    <!--<frontend_class>validate-number</frontend_class>-->
+                <!--</field>-->
+                <!--<field id="promo_id_cart_size_value" translate="label" type="text" sortOrder="85" showInDefault="1" showInWebsite="1" showInStore="0">-->
+                    <!--<label>Cart-size Resolve Promo ID</label>-->
+                <!--</field>-->
+            <!--</group>-->
+            <!--<group id="resolve_pixel" translate="label" sortOrder="120" showInDefault="1" showInWebsite="1" showInStore="0">-->
+                <!--<label>Enhanced Analytics</label>-->
+                <!--<field id="enabled" translate="label" type="select" sortOrder="3" showInDefault="1" showInWebsite="1" showInStore="0">-->
+                    <!--<label>Enable Resolve pixel</label>-->
+                    <!--<source_model>Magento\Config\Model\Config\Source\Yesno</source_model>-->
+                    <!--<comment>Enable resolve tracking pixels. In addition to enabling this config, please do enable pixel for specific actions using config options listed below.</comment>-->
+                <!--</field>-->
+                <!--<field id="add_cart" translate="label" type="select" sortOrder="4" showInDefault="1" showInWebsite="1" showInStore="0">-->
+                    <!--<label>Add to Cart</label>-->
+                    <!--<source_model>Magento\Config\Model\Config\Source\Yesno</source_model>-->
+                    <!--<comment>Enable add to cart tracking</comment>-->
+                <!--</field>-->
+                <!--<field id="add_search" translate="label" type="select" sortOrder="5" showInDefault="1" showInWebsite="1" showInStore="0">-->
+                    <!--<label>Search</label>-->
+                    <!--<source_model>Magento\Config\Model\Config\Source\Yesno</source_model>-->
+                    <!--<comment>Enable search tracking</comment>-->
+                <!--</field>-->
+                <!--<field id="add_product_view" translate="label" type="select" sortOrder="6" showInDefault="1" showInWebsite="1" showInStore="0">-->
+                    <!--<label>Product</label>-->
+                    <!--<source_model>Magento\Config\Model\Config\Source\Yesno</source_model>-->
+                    <!--<comment>Enable product tracking</comment>-->
+                <!--</field>-->
+                <!--<field id="add_product_list" translate="label" type="select" sortOrder="7" showInDefault="1" showInWebsite="1" showInStore="0">-->
+                    <!--<label>Product List</label>-->
+                    <!--<source_model>Magento\Config\Model\Config\Source\Yesno</source_model>-->
+                    <!--<comment>Enable product list tracking</comment>-->
+                <!--</field>-->
+                <!--<field id="add_checkout_start" translate="label" type="select" sortOrder="8" showInDefault="1" showInWebsite="1" showInStore="0">-->
+                    <!--<label>Checkout Start</label>-->
+                    <!--<source_model>Magento\Config\Model\Config\Source\Yesno</source_model>-->
+                    <!--<comment>Enable checkout start tracking</comment>-->
+                <!--</field>-->
+                <!--<field id="add_checkout_success" translate="label" type="select" sortOrder="9" showInDefault="1" showInWebsite="1" showInStore="0">-->
+                    <!--<label>Checkout Success</label>-->
+                    <!--<source_model>Magento\Config\Model\Config\Source\Yesno</source_model>-->
+                    <!--<comment>Enable checkout success tracking</comment>-->
+                <!--</field>-->
+            <!--</group>-->
+        <!--</section>-->
+    </system>
+</config>

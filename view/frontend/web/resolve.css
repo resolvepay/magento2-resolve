@@ -1,0 +1,25 @@
+.resolve-info-head {
+    color: #034082;
+    font-size: 16px;
+    font-weight: normal;
+    margin: 0 !important;
+    line-height: 1.42em;
+}
+
+.resolve-info-description {
+    color: #6f6f6f;
+    font-size: 14px;
+    margin-bottom: 0;
+}
+
+.resolve-item {
+    margin-bottom: 1.5em;
+}
+
+.resolve-payment-icon {
+    vertical-align: middle !important;
+    max-height: 42px;
+    max-width: 60px;
+    width: auto;
+    margin-top: -.3em;
+}
