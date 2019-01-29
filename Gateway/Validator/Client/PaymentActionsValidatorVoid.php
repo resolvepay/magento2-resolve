@@ -37,15 +37,8 @@ class PaymentActionsValidatorVoid extends PaymentActionsValidator
      */
     public function validate(array $validationSubject)
     {
-        $response = SubjectReader::readResponse($validationSubject);
-
         $errorMessages = [];
-        $validationResult = $this->validateResponseCode($response)
-            && $this->validateResponseType($response);
-
-        if (!$validationResult) {
-            $errorMessages = [__('Transaction has been declined, please, try again later.')];
-        }
+        $validationResult = true;
 
         return $this->createResult($validationResult, $errorMessages);
     }

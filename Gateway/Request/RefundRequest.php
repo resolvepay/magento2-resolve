@@ -58,7 +58,7 @@ class RefundRequest extends AbstractDataBuilder
                 'amount' => $amountInCents,
                 'charge_id' => $chargeId
             ],
-            'path' => "refund",
+            'path' => "/refunds",
             'storeId' => $storeId
         ];
     }
