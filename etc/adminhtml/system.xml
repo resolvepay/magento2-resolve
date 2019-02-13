@@ -49,23 +49,23 @@
                     <source_model>Resolve\Resolve\Model\Adminhtml\Source\ModeAction</source_model>
                 </field>
                 <field id="public_api_key_sandbox" translate="label" type="text" sortOrder="30" showInDefault="1" showInWebsite="1" showInStore="0">
-                    <label>Public API Key</label>
+                    <label>Merchant ID</label>
                     <depends><field id="mode">sandbox</field></depends>
                 </field>
                 <field id="private_api_key_sandbox" translate="label" type="obscure" sortOrder="40" showInDefault="1" showInWebsite="1" showInStore="0">
-                    <label>Private API Key</label>
+                    <label>Secret API Key</label>
                     <config_path>payment/resolve_gateway/private_api_key_sandbox</config_path>
                     <backend_model>Magento\Config\Model\Config\Backend\Encrypted</backend_model>
                     <attribute type="shared">1</attribute>
                     <depends><field id="mode">sandbox</field></depends>
                 </field>
                 <field id="public_api_key_production" translate="label" type="text" sortOrder="30" showInDefault="1" showInWebsite="1" showInStore="0">
-                    <label>Public API Key</label>
+                    <label>Merchant ID</label>
                     <config_path>payment/resolve_gateway/public_api_key_production</config_path>
                     <depends><field id="mode">production</field></depends>
                 </field>
                 <field id="private_api_key_production" translate="label" type="obscure" sortOrder="40" showInDefault="1" showInWebsite="0">
-                    <label>Private API Key</label>
+                    <label>Secret API Key</label>
                     <backend_model>Magento\Config\Model\Config\Backend\Encrypted</backend_model>
                     <attribute type="shared">1</attribute>
                     <depends><field id="mode">production</field></depends>
