@@ -40,16 +40,16 @@
             </block>
         </referenceContainer>
         <referenceContainer name="content">
-            <block class="Resolve\Resolve\Block\Promotion\Banners" name="resolve_banner_center_top" as="bml.main.top" template="Resolve_Resolve::promotion/bml.phtml" before="-">
-                <arguments>
-                    <argument name="section" xsi:type="string">checkout_cart</argument>
-                    <argument name="position" xsi:type="number">0</argument>
-                </arguments>
-            </block>
-            <block class="Resolve\Resolve\Block\Promotion\Banners" name="resolve_banner_center_bottom" as="bml.main.bottom" template="Resolve_Resolve::promotion/bml.phtml" after="-">
+            <block class="Resolve\Resolve\Block\Promotion\Banners" name="resolve_banner_center_top" as="rs.bml.main.top" template="Resolve_Resolve::promotion/bml.phtml" before="-">
                 <arguments>
                     <argument name="section" xsi:type="string">checkout_cart</argument>
                     <argument name="position" xsi:type="number">1</argument>
+                </arguments>
+            </block>
+            <block class="Resolve\Resolve\Block\Promotion\Banners" name="resolve_banner_center_bottom" as="rs.bml.main.bottom" template="Resolve_Resolve::promotion/bml.phtml" after="-">
+                <arguments>
+                    <argument name="section" xsi:type="string">checkout_cart</argument>
+                    <argument name="position" xsi:type="number">2</argument>
                 </arguments>
             </block>
         </referenceContainer>
