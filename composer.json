@@ -1,6 +1,6 @@
 {
     "name": "resolve/magento2",
-    "description": "Resolve's extension for the Magento 2 https://www.resolve.com/",
+    "description": "Resolve's extension for the Magento 2 https://www.paywithresolve.com/",
     "type": "magento2-module",
     "version": "2.1.5",
     "license": [
