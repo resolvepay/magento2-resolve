@@ -67,7 +67,7 @@ class AsLowAs extends FinancingProgram
         }
         /** @var \Magento\Catalog\Model\ResourceModel\Category\Collection $categoryCollection */
         $categoryCollection = $this->categoryCollectionFactory->create()
-            ->addAttributeToSelect(['resolve_category_mfp', 'resolve_category_mfp_type', 'resolve_category_mfp_priority', 'resolve_category_mfp_start_date', 'resolve_category_mfp_end_date'])
+            ->addAttributeToSelect(['resolve_category_mfp', 'resolve_category_mfp_type', 'resolve_category_mfp_priority', 'rs_category_mfp_start_date', 'resolve_category_mfp_end_date'])
             ->addAttributeToFilter('entity_id', array('in' => $categoryItemsIds));
         if ($flagProductWithoutMfpCategories) {
             $categoryCollection->setFlag('productWithoutMfpCategories', true);

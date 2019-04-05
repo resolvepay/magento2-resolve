@@ -90,7 +90,7 @@ class Aslowas extends AslowasAbstract
     public function getMFPValue()
     {
         $productCollection = $this->resolvePaymentHelper->getProduct()->getCollection()
-            ->addAttributeToSelect(['resolve_product_promo_id', 'resolve_product_mfp_type', 'resolve_product_mfp_priority', 'resolve_product_mfp_start_date', 'resolve_product_mfp_end_date'])
+            ->addAttributeToSelect(['resolve_product_promo_id', 'resolve_product_mfp_type', 'resolve_product_mfp_priority', 'rs_product_mfp_start_date', 'rs_product_mfp_end_date'])
             ->addAttributeToFilter('entity_id', $this->resolvePaymentHelper->getProduct()->getId());
 
         return $this->asLowAsHelper->getFinancingProgramValueALS($productCollection);

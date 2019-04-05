@@ -23,6 +23,11 @@ use Magento\Eav\Setup\EavSetupFactory;
 use Magento\Framework\Setup\UpgradeDataInterface;
 use Magento\Framework\Setup\ModuleContextInterface;
 use Magento\Framework\Setup\ModuleDataSetupInterface;
+use Magento\Catalog\Model\ResourceModel\Product\CollectionFactory;
+use Magento\Catalog\Model\ResourceModel\Category\CollectionFactory as CategoryCollection;
+use Magento\Framework\App\State;
+use Magento\Catalog\Api\ProductRepositoryInterface;
+use Magento\Catalog\Api\CategoryRepositoryInterface;
 
 /**
  * Upgrade data
@@ -35,17 +40,48 @@ class UpgradeData implements UpgradeDataInterface
      * @var EavSetupFactory
      */
     protected $eavSetupFactory;
+    /**
+     * @var CollectionFactory
+     */
+    private $productCollectionFactory ;
+    /**
+     * @var CategoryCollection
+     */
+    private $categoryCollection;
+    /**
+     * @var \Magento\Catalog\Api\ProductRepositoryInterface
+     */
+    private $productRepository;
+    /**
+     * @var \Magento\Catalog\Api\CategoryRepositoryInterface
+     */
+    private $categoryRepository;
 
     /**
      * Init
      *
      * @param EavSetupFactory $eavSetupFactory
+     * @param CollectionFactory $collectionFactory
+     * @param CategoryCollection $categoryCollection
+     * @param State $state
+     * @param \Magento\Catalog\Api\ProductRepositoryInterface $productRepository
+     * @param CategoryRepositoryInterface $categoryRepository
+     * @throws \Magento\Framework\Exception\LocalizedException
      */
     public function __construct(
-            EavSetupFactory $eavSetupFactory
-    )
-    {
+            EavSetupFactory $eavSetupFactory,
+            CollectionFactory $collectionFactory,
+            CategoryCollection $categoryCollection,
+            State $state,
+            ProductRepositoryInterface $productRepository,
+            CategoryRepositoryInterface $categoryRepository
+    ) {
+        $state->setAreaCode(\Magento\Framework\App\Area::AREA_GLOBAL);
         $this->eavSetupFactory = $eavSetupFactory;
+        $this->productCollectionFactory = $collectionFactory;
+        $this->categoryCollection = $categoryCollection;
+        $this->productRepository = $productRepository;
+        $this->categoryRepository = $categoryRepository;
     }
 
     /**
@@ -205,7 +241,7 @@ class UpgradeData implements UpgradeDataInterface
         if (version_compare($context->getVersion(), '1.0.2', '<')) {
             $eavSetup->addAttribute(
                     \Magento\Catalog\Model\Product::ENTITY,
-                    'resolve_product_mfp_start_date',
+                    'rs_product_mfp_start_date',
                     [
                             'type' => 'datetime',
                             'backend' => '',
@@ -255,7 +291,7 @@ class UpgradeData implements UpgradeDataInterface
 
             $eavSetup->addAttribute(
                     \Magento\Catalog\Model\Category::ENTITY,
-                    'resolve_category_mfp_start_date',
+                    'rs_category_mfp_start_date',
                     [
                             'type' => 'datetime',
                             'label' => 'Start date for time based Financing Program value',
@@ -342,6 +378,102 @@ class UpgradeData implements UpgradeDataInterface
                     'apply_to' => '',
                 ]
             );
+        }
+
+        if (version_compare($context->getVersion(), '2.1.6', '<')) {
+
+            $eavSetup->addAttribute(
+                \Magento\Catalog\Model\Category::ENTITY,
+                'rs_category_mfp_start_date',
+                [
+                    'type' => 'datetime',
+                    'label' => 'Start date for time based Financing Program value (Resolve)',
+                    'input' => 'date',
+                    'class' => '',
+                    'required' => 0,
+                    'sort_order' => 103,
+                    'global' => \Magento\Eav\Model\Entity\Attribute\ScopedAttributeInterface::SCOPE_WEBSITE,
+                    'group' => 'General Information',
+                    'is_used_in_grid' => 0,
+                    'is_visible_in_grid' => 0,
+                    'is_filterable_in_grid' => 0,
+                    'used_in_product_listing' => 1,
+                ]
+            );
+
+            $eavSetup->addAttribute(
+                \Magento\Catalog\Model\Product::ENTITY,
+                'rs_product_mfp_start_date',
+                [
+                    'type' => 'datetime',
+                    'label' => 'Start date for time based Financing Program value Resolve (Resolve)',
+                    'input' => 'date',
+                    'class' => '',
+                    'global' => \Magento\Catalog\Model\ResourceModel\Eav\Attribute::SCOPE_GLOBAL,
+                    'group' => 'General',
+                    'visible' => 1,
+                    'required' => 0,
+                    'user_defined' => 0,
+                    'searchable' => 0,
+                    'filterable' => 0,
+                    'comparable' => 0,
+                    'visible_on_front' => 0,
+                    'used_in_product_listing' => 1,
+                    'unique' => 0,
+                    'apply_to' => '',
+                ]
+            );
+
+            $eavSetup->addAttribute(
+                \Magento\Catalog\Model\Product::ENTITY,
+                'rs_product_mfp_end_date',
+                [
+                    'type' => 'datetime',
+                    'label' => 'End date for time based Financing Program value Resolve (Resolve)',
+                    'input' => 'date',
+                    'class' => '',
+                    'global' => \Magento\Catalog\Model\ResourceModel\Eav\Attribute::SCOPE_GLOBAL,
+                    'group' => 'General',
+                    'visible' => 1,
+                    'required' => 0,
+                    'user_defined' => 0,
+                    'searchable' => 0,
+                    'filterable' => 0,
+                    'comparable' => 0,
+                    'visible_on_front' => 0,
+                    'used_in_product_listing' => 1,
+                    'unique' => 0,
+                    'apply_to' => '',
+                ]
+            );
+
+            $productCollection = $this->productCollectionFactory
+                ->create()
+                ->addAttributeToSelect('*')
+                ->load();
+
+            foreach ($productCollection as $product) {
+                if ($product->getData('resolve_product_mfp_start_date') || $product->getData('resolve_product_mfp_end_date')) {
+                    $product->setData('rs_product_mfp_start_date', $product->getData('resolve_product_mfp_start_date'));
+                    $product->setData('rs_product_mfp_end_date', $product->getData('resolve_product_mfp_end_date'));
+                    $this->productRepository->save($product);
+                }
+            };
+
+            $categoryCollection = $this->categoryCollection
+                ->create()
+                ->addAttributeToSelect('*')
+                ->load();
+            foreach ($categoryCollection as $catalog) {
+                if ($catalog->getData('resolve_category_mfp_start_date')) {
+                    $catalog->setData('rs_category_mfp_start_date', $catalog->getData('resolve_category_mfp_start_date'));
+                    $this->categoryRepository->save($catalog);
+                }
+            };
+
+            $eavSetup->removeAttribute(\Magento\Catalog\Model\Category::ENTITY, 'resolve_category_mfp_start_date');
+            $eavSetup->removeAttribute(\Magento\Catalog\Model\Product::ENTITY, 'resolve_product_mfp_start_date');
+            $eavSetup->removeAttribute(\Magento\Catalog\Model\Product::ENTITY, 'resolve_product_mfp_end_date');
         }
     }
 }

@@ -263,7 +263,7 @@ class FinancingProgram
                 $productIds[] = $visibleQuoteItem->getProductId();
             }
             $this->products = $this->productCollectionFactory->create()
-                ->addAttributeToSelect(['resolve_product_mfp', 'resolve_product_promo_id', 'resolve_product_mfp_type', 'resolve_product_mfp_priority', 'resolve_product_mfp_start_date', 'resolve_product_mfp_end_date'])
+                ->addAttributeToSelect(['resolve_product_mfp', 'resolve_product_promo_id', 'resolve_product_mfp_type', 'resolve_product_mfp_priority', 'rs_product_mfp_start_date', 'rs_product_mfp_end_date'])
                 ->addAttributeToFilter('entity_id', array('in' => $productIds));
         }
         return $this->products;
@@ -304,7 +304,7 @@ class FinancingProgram
         }
         /** @var \Magento\Catalog\Model\ResourceModel\Category\Collection $categoryCollection */
         $categoryCollection = $this->categoryCollectionFactory->create()
-            ->addAttributeToSelect(['resolve_category_mfp', 'resolve_category_promo_id', 'resolve_category_mfp_type', 'resolve_category_mfp_priority', 'resolve_category_mfp_start_date', 'resolve_category_mfp_end_date'])
+            ->addAttributeToSelect(['resolve_category_mfp', 'resolve_category_promo_id', 'resolve_category_mfp_type', 'resolve_category_mfp_priority', 'rs_category_mfp_start_date', 'resolve_category_mfp_end_date'])
             ->addAttributeToFilter('entity_id', array('in' => $categoryItemsIds));
         if ($flagProductWithoutMfpCategories) {
             $categoryCollection->setFlag('productWithoutMfpCategories', true);
