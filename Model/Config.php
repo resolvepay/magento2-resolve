@@ -61,8 +61,8 @@ class Config implements ConfigInterface
     const KEY_MINIMUM_ORDER_TOTAL = 'minimum_order_total';
     const KEY_MAXIMUM_ORDER_TOTAL = 'maximum_order_total';
     const KEY_SORT_ORDER = 'sort_order';
-    const API_URL_SANDBOX = 'https://app-sandbox.paywithresolve.com/api';
-    const API_URL_PRODUCTION = 'https://api.resolve.com';
+    const API_URL_SANDBOX = 'https://app-sandbox.resolvepay.com/api';
+    const API_URL_PRODUCTION = 'https://app.resolvepay.com/api';
     const METHOD_BML = 'resolve_promo';
     const KEY_ASLOWAS = 'resolve_aslowas';
     const KEY_MFP = 'resolve_mfp';
@@ -621,7 +621,7 @@ class Config implements ConfigInterface
     public function getResolveAssetsUrl()
     {
         $prefix = "cdn-assets";
-        $domain = "resolve.com";
+        $domain = "resolvepay.com";
         $assetPath = "images/banners";
         return 'https://' . $prefix . '.' . $domain . '/' . $assetPath ;
     }

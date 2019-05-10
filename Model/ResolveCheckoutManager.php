@@ -8,11 +8,11 @@
  * http://opensource.org/licenses/osl-3.0.php
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
- * to codemaster@resolvecommerce.com so we can send you a copy immediately.
+ * to help@resolvepay.com so we can send you a copy immediately.
  *
  * @category  Resolve
  * @package   Resolve_Resolve
- * @copyright Copyright (c) 2016 Resolve, Inc. (http://www.resolvecommerce.com)
+ * @copyright Copyright (c) 2016 Resolve Corp. (https://www.resolvepay.com)
  * @license   http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -217,14 +217,12 @@ class ResolveCheckoutManager implements ResolveCheckoutManagerInterface
 
         foreach ($this->quote->getAllItems() as $item) {
             $items[] = array(
-                'sku' => $item->getSku(),
-                'display_name' => $item->getName(),
-                'name' => $item->getName(),
-                'item_url' => $item->getProduct()->getProductUrl(),
-                'item_image_url' => $this->productHelper->getImageUrl($item->getProduct()),
-                'qty' => intval($item->getQty()),
-                'quantity' => intval($item->getQty()),
-                'unit_price' => $this->formatCents($item->getPrice())
+              'name' => $item->getName(),
+              'sku' => $item->getSku(),
+              'item_url' => $item->getProduct()->getProductUrl(),
+              'item_image_url' => $this->productHelper->getImageUrl($item->getProduct()),
+              'quantity' => intval($item->getQty()),
+              'unit_price' => $this->formatCents($item->getPrice())
             );
         }
 
@@ -232,43 +230,32 @@ class ResolveCheckoutManager implements ResolveCheckoutManagerInterface
         $response['shipping_amount'] = $this->formatCents($shippingAddress->getShippingAmount());
         $response['shipping_type'] = $shippingAddress->getShippingMethod();
         $response['tax_amount'] = $this->formatCents($shippingAddress->getTaxAmount());
-        $response['purchase_order_id'] = $orderIncrementId;
-        $response['order_id'] = $orderIncrementId;
+        $response['order_number'] = $orderIncrementId;
         $response['po_number'] = $orderIncrementId;
         $response['config'] = ['required_billing_fields' => 'name,address,email'];
         $response['items'] = $items;
         $response['billing'] = [
-            'name' => [
-                'full' => $this->quote->getBillingAddress()->getName()
-            ],
-            'email' => $this->quote->getCustomerEmail(),
-            'phone_number' => $this->quote->getBillingAddress()->getTelephone(),
-            'phone_number_alternative' => $this->quote->getBillingAddress()->getTelephone(),
-            'address' => [
-                'line1'   => $billingAddress->getStreetLine(1),
-                'line2'   => $billingAddress->getStreetLine(2),
-                'city'    => $billingAddress->getCity(),
-                'state'   => $billingAddress->getRegion(),
-                'country' => $billingAddress->getCountryModel()->getCountryId(),
-                'zipcode' => $billingAddress->getPostcode(),
-            ]
+          'name' => $this->quote->getBillingAddress()->getName(),
+          'phone' => $this->quote->getBillingAddress()->getTelephone(),
+          'address_line1' => $billingAddress->getStreetLine(1),
+          'address_line2' => $billingAddress->getStreetLine(2),
+          'address_city' => $billingAddress->getCity(),
+          'address_state' => $billingAddress->getRegion(),
+          'address_postal' => $billingAddress->getPostcode(),
+          'address_country' => $billingAddress->getCountryModel()->getCountryId(),
         ];
 
         if ($shippingAddress) {
             $response['shipping'] = [
-                'name' => [
-                    'full' => $shippingAddress->getName()
-                ],
-                'phone_number' => $shippingAddress->getTelephone(),
-                'phone_number_alternative' => $shippingAddress->getTelephone(),
-                'address' => [
-                    'line1' => $shippingAddress->getStreetLine(1),
-                    'line2' => $shippingAddress->getStreetLine(2),
-                    'city' => $shippingAddress->getCity(),
-                    'state' => $shippingAddress->getRegion(),
-                    'country' => $shippingAddress->getCountryModel()->getCountryId(),
-                    'zipcode' => $shippingAddress->getPostcode(),
-                ]
+                'name' => $shippingAddress->getName(),
+                'company' => $shippingAddress->getCompany(),
+                'phone' => $shippingAddress->getTelephone(),
+                'address_line1' => $shippingAddress->getStreetLine(1),
+                'address_line2' => $shippingAddress->getStreetLine(2),
+                'address_city' => $shippingAddress->getCity(),
+                'address_state' => $shippingAddress->getRegion(),
+                'address_postal' => $shippingAddress->getPostcode(),
+                'address_country' => $shippingAddress->getCountryModel()->getCountryId(),
             ];
         }
 
