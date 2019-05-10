@@ -12,7 +12,7 @@
  *
  * @category  Resolve
  * @package   Resolve_Resolve
- * @copyright Copyright (c) 2016 Resolve, Inc. (http://www.resolvecommerce.com)
+ * @copyright Copyright (c) 2019 Resolve Corp. (http://www.resolvepay.com)
  * @license   http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
@@ -64,7 +64,7 @@ class Info extends ConfigurableInfo
     protected function getDomainUrl()
     {
         return $this->_scopeConfig->getValue('payment/resolve_gateway/mode') == 'sandbox' ?
-            'sandbox.resolve.com' : 'www.resolve.com';
+            'app-sandbox.resolvepay.com' : 'app.resolvepay.com';
     }
 
     /**
@@ -87,7 +87,7 @@ class Info extends ConfigurableInfo
     protected function getAdminResolveUrl()
     {
         $loanId = $this->getInfo()->getOrder()->getPayment()->getAdditionalInformation('charge_id');
-        return sprintf('https://%s/dashboard/#/details/%s?trk=%s', $this->getDomainUrl(), $loanId,
+        return sprintf('https://%s/dashboard/charges/%s?trk=%s', $this->getDomainUrl(), $loanId,
             $this->getPublicApiKey()
         );
     }
@@ -100,7 +100,7 @@ class Info extends ConfigurableInfo
     protected function getFrontendResolveUrl()
     {
         $loanId = $this->getInfo()->getOrder()->getPayment()->getAdditionalInformation('charge_id');
-        return sprintf("https://%s/u/#/loans/%s?trk=%s", $this->getDomainUrl(), $loanId, $this->getPublicApiKey());
+        return sprintf("https://%s/dashboard/charges/%s?trk=%s", $this->getDomainUrl(), $loanId, $this->getPublicApiKey());
     }
 
     /**

@@ -113,7 +113,7 @@ class AfterShipmentSaveObserver implements ObserverInterface
 
             $url = $this->getApiUrl("{$chargeId}/update");
             $data = [
-                'order_id' => $orderIncrementId,
+                'order_number' => $orderIncrementId,
                 'shipping_carrier' => $shippingCarrier,
                 'shipping_confirmation' => $shippingConfirmation
             ];

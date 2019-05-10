@@ -1,23 +1,23 @@
 {
-    "name": "resolve/magento2",
-    "description": "Resolve's extension for the Magento 2 https://www.paywithresolve.com/",
-    "type": "magento2-module",
-    "version": "2.1.6",
-    "license": [
-        "BSD-3-Clause"
-    ],
-    "repositories": [
-        {
-            "type": "composer",
-            "url": "https://repo.magento.com/"
-        }
-    ],
-    "autoload": {
-        "files": [
-            "registration.php"
-        ],
-        "psr-4": {
-            "Resolve\\Resolve\\": ""
-        }
+  "name": "resolve/magento2",
+  "description": "Resolve's extension for Magento 2 https://www.resolvepay.com/",
+  "type": "magento2-module",
+  "version": "2.1.6",
+  "license": [
+    "BSD-3-Clause"
+  ],
+  "repositories": [
+    {
+      "type": "composer",
+      "url": "https://repo.magento.com/"
     }
+  ],
+  "autoload": {
+    "files": [
+      "registration.php"
+    ],
+    "psr-4": {
+      "Resolve\\Resolve\\": ""
+    }
+  }
 }
