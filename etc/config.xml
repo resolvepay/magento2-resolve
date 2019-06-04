@@ -6,7 +6,7 @@
  *
  * @category  Resolve
  * @package   Resolve_Resolve
- * @copyright Copyright (c) 2016 Resolve, Inc. (http://www.resolvecommerce.com)
+ * @copyright Copyright (c) 2019 Resolve, Inc. (http://www.resolvepay.com)
  */
  -->
 
@@ -20,8 +20,8 @@
                 <mode>sandbox</mode>
                 <private_api_key_sandbox backend_model="Magento\Config\Model\Config\Backend\Encrypted" />
                 <private_api_key_production backend_model="Magento\Config\Model\Config\Backend\Encrypted" />
-                <min_order_total>0.01</min_order_total>
-                <max_order_total>50000</max_order_total>
+                <min_order_total>499</min_order_total>
+                <max_order_total>100000</max_order_total>
                 <payment_action>authorize</payment_action>
                 <disable_for_backordered_items>0</disable_for_backordered_items>
                 <allowspecific>1</allowspecific>
@@ -40,7 +40,7 @@
                 <is_gateway>1</is_gateway>
                 <sort_order>0</sort_order>
                 <title>Resolve</title>
-                <info>Monthly Payments</info>
+                <info>Payment terms</info>
                 <virtual_terminal_url>http://help.merchants.resolve.com/article/67-virtual-terminal-overview</virtual_terminal_url>
                 <enable_checkout_button>0</enable_checkout_button>
                 <checkout_button_code>https://cdn-assets.resolve.com/images/buttons/30_148-white.png</checkout_button_code>
